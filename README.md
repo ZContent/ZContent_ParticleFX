@@ -1,5 +1,5 @@
 # ZContent_ParticleFX
-Point of light effects with an Adadfruit NeoPixel matrix
+Point of light effects with an Adafruit NeoPixel matrix
 
 This Arduino library uses an Adafruit NeoPixel matrix to create animated 
 special effects for points of light. These "particles" can be used singlely 
