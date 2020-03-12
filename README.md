@@ -71,10 +71,14 @@ this library. Other Feathers may work but have not been tested.
 
 ## Examples
 
+Examples are written based on an 8x8 matrix, however it is programmed as a 64x64 matrix
+and then reduced to the lower resolution to create a smooth, anti-aliasing
+type effect with the animations.
+
 Examples can be found in the examples folder and a are a great way to see
 how to use the library. This project and documentation
 is under development and more examples are expected to be added in the future.
 
-More animation examples and project development can be found on the author's 
+Animation videos and project status can also be found on the author's 
 twitter account @cogliano.
 
