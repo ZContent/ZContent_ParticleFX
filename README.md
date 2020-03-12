@@ -18,6 +18,20 @@ Dim effects would run in series while the Move effect would run in parallel
 with the Pause and Dim effects.
 This is similar to the way a shooting star appears in the sky.
 
+## Classes
+
+These are main classes to the ParticleFX library:
+
+particle - This is the "point of light" that is controlled by the effects
+
+particleEffect - The main class where all effects are derived from (see Effects
+section below)
+
+particleEffectList - This class contains the list of effects that are applied
+to the particle
+
+particlegfx - This class draws the particles onto the pixel matrix
+
 ## Effects
 
 Here is a list of the effects that are available in the libray:
