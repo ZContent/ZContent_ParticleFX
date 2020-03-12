@@ -42,7 +42,9 @@ In addition to this library, the following GitHub libraries are needed in
 order to use this library.
 
 Adafruit_GFX - https://github.com/adafruit/Adafruit-GFX-Library
+
 Adafruit_NeoMatrix - https://github.com/adafruit/Adafruit_NeoMatrix
+
 Adafruit_NeoPixel - https://github.com/adafruit/Adafruit_NeoPixel
 
 ## Hardware Requirements
