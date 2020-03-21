@@ -31,7 +31,6 @@ particleEffectList *fireEffects[MAXFIREPARTICLES];
 effectMove *fireMoveEffect[MAXFIREPARTICLES];
 effectMotionBlur *fireMotionBlurEffect[MAXFIREPARTICLES];
 effectPause *firePauseEffect[MAXFIREPARTICLES];
-effectPause *fireEndPauseEffect[MAXFIREPARTICLES];
 effectDim *fireDimEffect[MAXFIREPARTICLES];
 particlegfx firematrix = particlegfx();
 
@@ -54,8 +53,6 @@ void setup() {
     fireEffects[i]->appendEffect(firePauseEffect[i] = new effectPause(fire[i], true, random(0,8)));
     // move flame up
     fireEffects[i]->appendEffect(fireMoveEffect[i] = new effectMove(fire[i], true, 8, 78, 6));
-    // pause before dimming flame
-    fireEffects[i]->appendEffect(fireEndPauseEffect[i] = new effectPause(fire[i], false, 5));
     // dim flame
     fireEffects[i]->appendEffect(fireDimEffect[i] = new effectDim(fire[i], true, 0., 5));
   }
@@ -109,7 +106,6 @@ void drawFlame(bool flameon)
         fireMoveEffect[i]->setPointY(random(0,24));
         firePauseEffect[i]->setSpeed(random(0,6));
         // 3-5 looks good
-        fireEndPauseEffect[i]->setSpeed(5);
         fireDimEffect[i]->setSpeed(4);
         #ifdef MOTIONBLUR
         fireMotionBlurEffect[i]->reset();
