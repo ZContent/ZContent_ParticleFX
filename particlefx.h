@@ -24,7 +24,7 @@ class particleEffectList {
 
 class particleEffect {
 	public:
-		particleEffect(){_wait = false; _done = false; _enabled = true;};
+		particleEffect(){_wait = false; _done = false; _enabled = true; _debug = 0;};
 		virtual bool doEffect() = 0;
 		virtual char *effectName(){return "generic";};
 		void setWait(bool wait){_wait = wait;};
@@ -48,6 +48,7 @@ class effectDim : public particleEffect {
 		char *effectName(){return "effectDim";};
 		bool doEffect();
 		effectDim(particle *particle, bool wait, uint16_t brightness, int16_t speed);
+		effectDim(particle *particle, bool wait, uint16_t startb, uint16_t endb, int16_t speed);
 		void setBrightness(float value){_counter = _speed; _end_brightness = value; _start_brightness = _particle->getBrightness(); setDone(false);};
 		void setSpeed(int16_t speed){_speed = _counter = speed; setDone(false);};
 

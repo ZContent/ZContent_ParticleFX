@@ -32,13 +32,13 @@ void particleEffectList::appendEffect(particleEffect *effect)
 	{
 		list = list->_next;
 		effectcount++;
-		Serial.print("count:"); Serial.print(effectcount); Serial.print(" / "); Serial.println((uint32_t)list);
+		//Serial.print("count:"); Serial.print(effectcount); Serial.print(" / "); Serial.println((uint32_t)list);
 	}
 	//Serial.print("appending effect "); Serial.println(effectcount);
 	particleEffectList *item = new particleEffectList(effect);
 	list->_next = item;
 	item->_previous = list;
-	Serial.println("done appendEffect()");
+	//Serial.println("done appendEffect()");
 }
 
 void particleEffectList::removeEffects()
@@ -50,7 +50,7 @@ void particleEffectList::removeEffects()
 	{
 		if(listitem != NULL)
 		{
-			Serial.println("removing effect");
+			//Serial.println("removing effect");
 			if(listitem != this)
 				free(listitem->getItem());
 			free(listitem);
@@ -79,6 +79,15 @@ particleEffectList* particleEffectList::popLast()
 }
 
 // higher speed: slower
+effectDim::effectDim(particle *particle, bool wait, uint16_t startb, uint16_t endb, int16_t speed)
+{
+	_particle = particle;
+	setWait(wait);
+	_start_brightness = startb;
+	_end_brightness = endb;
+	_speed = _counter = speed;
+};
+
 effectDim::effectDim(particle *particle, bool wait, uint16_t brightness, int16_t speed)
 {
 	_particle = particle;
@@ -97,9 +106,12 @@ bool effectDim::doEffect()
 		if(_counter > 0)
 		{
 			_counter--;
-			//Serial.print("dim value: ");Serial.println((float)_counter / (float)_speed);
 			if(_debug > 1)
-				Serial.print("setBrightness() to ");Serial.println(_end_brightness + (_start_brightness - _end_brightness)*((float)_counter / (float)_speed));
+			{
+				Serial.print("counter/speed: ");Serial.print(_counter);Serial.print("/");Serial.println(_speed);
+				Serial.print("dim value: ");Serial.println(_end_brightness + (_start_brightness - _end_brightness)*((float)_counter / (float)_speed));
+
+			}
 			float tb = _end_brightness + (_start_brightness - _end_brightness)*((float)_counter / (float)_speed);
 			_particle->setBrightness(tb);
 			if(tb < .2)
@@ -110,7 +122,12 @@ bool effectDim::doEffect()
 		{
 			_counter = 0;
 			_particle->setBrightness(_end_brightness);
-			setDone(true);
+			if(!isDone())
+			{
+				if(_debug > 1 || true)
+					Serial.println("dim effect completed");
+				setDone(true);
+			}
 		}
 	}
 	return false;
@@ -196,7 +213,9 @@ bool effectMove::doEffect()
 				_particle->setPointX(newx);
 				_particle->setPointY(newy);
 				if(_debug > 1)
+				{
 					Serial.print("move point: ");Serial.print(_particle->getPointX());Serial.print(",");Serial.print(_particle->getPointY());Serial.print(" speed:");Serial.print(_count);Serial.print("/");Serial.println(_speed);
+				}
 			}
 			else
 			{
@@ -204,7 +223,7 @@ bool effectMove::doEffect()
 				{
 					// wait here a bit
 					_pause--;
-					Serial.println("waiting during move");
+					//Serial.println("waiting during move");
 				}
 				else
 				{
@@ -215,7 +234,9 @@ bool effectMove::doEffect()
 					_particle->setPointX(newx);
 					_particle->setPointY(newy);
 					if(_debug > 1)
+					{
 						Serial.print("move back point: ");Serial.print(_particle->getPointX());Serial.print(",");Serial.print(_particle->getPointY());Serial.print(" speed:");Serial.println(_speed);
+					}
 					if(_count <= 0)
 					{
 						_particle->setPointX(_startx);
@@ -258,7 +279,9 @@ bool effectFloat::doEffect()
 		int16_t floatdelta = _sinedata320[_counter] - 128;
 		_particle->setPointY(_originaly + (int)(floatdelta * _amplitude / 128));
 		if(_debug > 1)
+		{
 			Serial.print("effectFloat point: ");Serial.print(_particle->getPointX());Serial.print(",");Serial.println(_particle->getPointY());
+		}
 		_counter = (_counter + _speed)%320;
 	}
 	return getWait();
