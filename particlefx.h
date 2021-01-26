@@ -50,6 +50,8 @@ class effectDim : public particleEffect {
 		effectDim(particle *particle, bool wait, uint16_t brightness, int16_t speed);
 		effectDim(particle *particle, bool wait, uint16_t startb, uint16_t endb, int16_t speed);
 		void setBrightness(float value){_counter = _speed; _end_brightness = value; _start_brightness = _particle->getBrightness(); setDone(false);};
+		void setBrightness(float startb, float endb){_counter = _speed; _end_brightness = endb; _start_brightness = startb; setDone(false);Serial.print("debug ");Serial.print(_start_brightness);
+		Serial.print(" ");Serial.println(_end_brightness);};
 		void setSpeed(int16_t speed){_speed = _counter = speed; setDone(false);};
 
 	private:
@@ -92,7 +94,7 @@ class effectMove : public particleEffect {
 		void setPoint(int16_t movetox, int16_t movetoy, bool moveback = false){_finalx = movetox; _finaly = movetoy; _startx = _particle->getPointX(); _starty = _particle->getPointY(); setDone(false); _moveback = moveback; _movemode = 0; _count = 0;};
 		void setPointX(int16_t movetox, bool moveback = false){_finalx = movetox; _startx = _particle->getPointX(); _starty = _particle->getPointY(); setDone(false); _moveback = moveback; _movemode = 0; _count =0;};
 		void setPointY(int16_t movetoy, bool moveback = false){_finaly = movetoy; _startx = _particle->getPointX(); _starty = _particle->getPointY(); setDone(false); _moveback = moveback; _movemode = 0; _count = 0;};
-		uint16_t setSpeed(uint16_t speed){_speed = speed; _count = 0; setDone(false);};
+		void setSpeed(uint16_t speed){_speed = speed; _count = 0; setDone(false);};
 		void setPause(uint16_t pause){_pause = pause;};
 		void setMoveBack(bool moveback){_moveback = moveback; _movemode = 0;};
 

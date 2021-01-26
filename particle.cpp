@@ -57,7 +57,7 @@ uint16_t particle::getPathLength()
 	return _pathlength;
 }
 
-int16_t particle::nextPoint()
+uint16_t particle::nextPoint()
 {
 	_pointpos++;
 	if(_pointpos >= _pathlength)

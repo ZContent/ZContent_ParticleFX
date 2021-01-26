@@ -11,16 +11,17 @@ class particle {
 			particle(){_path = 0; };
 			particle(int16_t *path, uint16_t pathlength, uint16_t loopstart, uint8_t red = 0, uint8_t green = 0xff, uint8_t blue = 0, bool gamma = false);
 			uint16_t getPathLength();
-			int16_t nextPoint();
+			uint16_t nextPoint();
 			bool getGamma(){return _gamma;};
 			void setGamma(bool gamma){_gamma = gamma;};
-			int16_t resetPoint(){ _pointpos = 0;};
+			void resetPoint(){ _pointpos = 0;};
 			void setColor(uint8_t r, uint8_t g, uint8_t b){ _r = r; _g = g; _b = b; _sr = r; _sg = g; _sb = b;};
 			int16_t getPointX();
 			int16_t getPointY();
 			void setPointX(int16_t x){ _x = x;};
 			void setPointY(int16_t y){ _y = y;};
 			void setPoint(int16_t x, int16_t y){ _x = x; _y = y;};
+			uint32_t getColor(){return (_r << 16) + (_g << 8) + _b;};
 			uint8_t getRed(){return _r;};
 			uint8_t getGreen(){return _g;};
 			uint8_t getBlue(){return _b;};
@@ -36,7 +37,7 @@ class particle {
 			void setGreenBrightness(float brightness){_brightness_g = brightness;};
 			void setBlueBrightness(float brightness){_brightness_b = brightness;};
 			bool isEnabled(){return _enabled;};
-			bool setEnabled(bool enabled){_enabled = enabled;};
+			void setEnabled(bool enabled){_enabled = enabled;};
 			void setSparkleColor(uint8_t r, uint8_t g, uint8_t b){ _sr = r; _sg = g; _sb = b;};
 			void addSparkle();
 			void clearSparkles();
